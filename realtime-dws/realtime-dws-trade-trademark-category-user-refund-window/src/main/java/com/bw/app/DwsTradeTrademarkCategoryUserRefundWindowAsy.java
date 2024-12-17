@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.bw.base.BaseApp;
 import com.bw.bean.TradeTrademarkCategoryUserRefundBean;
 import com.bw.common.Constant;
+import com.bw.functions.DorisMapFunction;
 import com.bw.utils.DateFormatUtil;
+import com.bw.utils.FlinkSinkUtil;
 import com.bw.utils.HbaseUtil;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -257,9 +259,9 @@ public class DwsTradeTrademarkCategoryUserRefundWindowAsy extends BaseApp {
         }, 100, TimeUnit.SECONDS);
         //添加水位线 分组 开窗 聚合
         SingleOutputStreamOperator<TradeTrademarkCategoryUserRefundBean> reduceStream = getReduceStream(mapStream);
-        reduceStream.print();
+//        reduceStream.print();
         //写入Doris
-//        reduceStream.map(new DorisMapFunction<>()).sinkTo(FlinkSinkUtil.getDorisSink(Constant.DWS_TRADE_TRADEMARK_CATEGORY_USER_REFUND_WINDOW));
+        reduceStream.map(new DorisMapFunction<>()).sinkTo(FlinkSinkUtil.getDorisSink(Constant.DWS_TRADE_TRADEMARK_CATEGORY_USER_REFUND_WINDOW));
     }
 
     /**

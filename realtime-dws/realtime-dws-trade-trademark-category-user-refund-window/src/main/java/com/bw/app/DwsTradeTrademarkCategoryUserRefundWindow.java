@@ -57,6 +57,7 @@ public class DwsTradeTrademarkCategoryUserRefundWindow extends BaseApp {
         SingleOutputStreamOperator<TradeTrademarkCategoryUserRefundBean> reduceStream = getReduceStream(mapStream);
         reduceStream.print();
         //写入Doris
+        reduceStream.map(new DorisMapFunction<>()).print();
 //        reduceStream.map(new DorisMapFunction<>()).sinkTo(FlinkSinkUtil.getDorisSink(Constant.DWS_TRADE_TRADEMARK_CATEGORY_USER_REFUND_WINDOW));
     }
 
