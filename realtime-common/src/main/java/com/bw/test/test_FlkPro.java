@@ -9,7 +9,7 @@ public class test_FlkPro {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         
 
-        DataStreamSource<String> streamSource = env.socketTextStream("hadoop102", 999);
+        DataStreamSource<String> streamSource = env.socketTextStream("cdh02", 999);
 
         streamSource.print();
 
