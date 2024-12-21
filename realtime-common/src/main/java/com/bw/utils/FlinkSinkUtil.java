@@ -9,6 +9,7 @@ import org.apache.doris.flink.cfg.DorisReadOptions;
 import org.apache.doris.flink.sink.DorisSink;
 import org.apache.doris.flink.sink.writer.SimpleStringSerializer;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
+import org.apache.flink.api.connector.sink.Sink;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.connector.base.DeliveryGuarantee;
 import org.apache.flink.connector.kafka.sink.KafkaRecordSerializationSchema;
@@ -61,10 +62,11 @@ public class FlinkSinkUtil {
 
     /**
      * 获取doris Sink
+     *
      * @param tableName
      * @return
      */
-    public static DorisSink<String> getDorisSink(String tableName){
+    public static Sink<String, ?, ?, ?> getDorisSink(String tableName){
         Properties properties = new Properties();
         // 上游是 json 写入时，需要开启配置
         properties.setProperty("format", "json");
